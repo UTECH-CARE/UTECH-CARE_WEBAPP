@@ -14,6 +14,13 @@
             const treatmentCell = newRow.insertCell(3);
             const actionCell = newRow.insertCell(4);
 
+            studentNameCell.innerHTML = prompt("Enter Student Name:");
+            symptomsCell.innerHTML = prompt("Enter Symptoms:");
+            diagnosisCell.innerHTML = prompt("Enter Diagnosis:");
+            treatmentCell.innerHTML = prompt("Enter Treatment:");
+            actionCell.innerHTML = "<button onclick='deleteRow(this)'>Delete</button>";
+
+
         }
         </script>
 </head>
