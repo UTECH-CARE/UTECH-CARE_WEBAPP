@@ -1,72 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to UTECH-CARE</title>
-
-    <style> 
-        h1 {
-            text-align: center; 
-            font-size: 60px; 
-            color: rgb(5, 3, 83);
-        }
-        h2 {
-            text-align: center; 
-            font-size: 30px;
-        }
-
-        /* FIXED BUTTON - MOVED LOWER */
-        #addLogBtn {
-            position: fixed;
-            top: 150px; 
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 12px 25px;
-            font-size: 16px;
-            background: #4464ff;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        #addLogBtn:hover {
-            background: #2d49cc;
-        }
-
-</style>
+    <title>Check-Up Log</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="p-4">
 
-    <h1>School Clinic Student Logs</h1>
+<ul class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm mb-4"
+    id="pillNav2"
+    role="tablist"
+    style="--bs-nav-link-color: var(--bs-white);
+           --bs-nav-pills-link-active-color: var(--bs-primary);
+           --bs-nav-pills-link-active-bg: var(--bs-white);">
 
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active rounded-5" id="home-tab2" data-bs-toggle="tab" type="button" role="tab">Home</button>
+  </li>
 
-    <button id="addLogBtn" onclick="addStudentLog()">Add Student Log</button> 
+  <li class="nav-item" role="presentation">
+    <button class="nav-link rounded-5" id="profile-tab2" data-bs-toggle="tab" type="button" role="tab">Profile</button>
+  </li>
 
-    <h3 style="margin-top: 220px;">Student Names & Details Logs:</h3>
-    <ul id="logList"></ul>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab">Contact</button>
+  </li>
 
-    <script>
-        function addStudentLog() {
-            const studentName = prompt("Enter Student Name:");
-            if (!studentName || studentName.trim() === "") return;
+</ul>
 
-            const purpose = prompt("Enter Purpose of Visit:");
-            if (!purpose || purpose.trim() === "") return;
+<h1 class="mb-3">Student Check-Up Log</h1>
 
-            const li = document.createElement("li");
-            li.textContent = studentName.trim() + " - " + purpose.trim();
+<button class="btn btn-primary mb-3" onclick="addCheckup()">Add Check-Up</button>
 
-            const delBtn = document.createElement("button");
-            delBtn.textContent = "Delete";
-            delBtn.onclick = () => li.remove();
+<table class="table table-bordered table-striped" id="logTable">
+    <thead class="table-dark">
+        <tr>
+            <th>Student Name</th>
+            <th>Purpose</th>
+            <th>Date & Time</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="logTableBody"></tbody>
+</table>
 
-            li.appendChild(delBtn);
-            document.getElementById("logList").appendChild(li);
-        }
-    </script>
-     
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function addCheckup() {
+    const studentName = prompt("Enter Student Name:");
+    if (!studentName || studentName.trim() === "") return;
+
+    const purpose = prompt("Enter Purpose of Visit:");
+    if (!purpose || purpose.trim() === "") return;
+
+    const tableBody = document.getElementById("logTableBody");
+    const row = document.createElement("tr");
+
+    const nameCell = document.createElement("td");
+    nameCell.textContent = studentName.trim();
+
+    const purposeCell = document.createElement("td");
+    purposeCell.textContent = purpose.trim();
+
+    const dateTimeCell = document.createElement("td");
+    dateTimeCell.textContent = new Date().toLocaleString();
+
+    const actionCell = document.createElement("td");
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "Delete";
+    delBtn.className = "btn btn-danger btn-sm";
+    delBtn.onclick = () => row.remove();
+    actionCell.appendChild(delBtn);
+
+    row.appendChild(nameCell);
+    row.appendChild(purposeCell);
+    row.appendChild(dateTimeCell);
+    row.appendChild(actionCell);
+
+    tableBody.appendChild(row);
+}
+</script>
+
 </body>
 </html>
